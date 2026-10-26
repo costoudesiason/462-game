@@ -23,3 +23,6 @@ Get `Setup.exe` from the [newest release](https://github.com/costoudesiason/462-
 If Windows says it protected your PC: **More info**, then **Run anyway** (the installer isn't code-signed).
 
 This repository only holds the game's builds.
+
+
+cd ~/Desktop && { sw_vers; sysctl -n machdep.cpu.brand_string; } > 462_mac_info.txt; zip -qj 462_crash.zip 462_mac_info.txt ~/Library/Logs/Doai462/*.log $(ls -t ~/Library/Logs/DiagnosticReports/Doai462* 2>/dev/null | head -2) && rm 462_mac_info.txt && echo "Saved 462_crash.zip on the Desktop"
