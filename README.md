@@ -26,3 +26,6 @@ This repository only holds the game's builds.
 
 
 cd ~/Desktop && { sw_vers; sysctl -n machdep.cpu.brand_string; } > 462_mac_info.txt; zip -qj 462_crash.zip 462_mac_info.txt ~/Library/Logs/Doai462/*.log $(ls -t ~/Library/Logs/DiagnosticReports/Doai462* 2>/dev/null | head -2) && rm 462_mac_info.txt && echo "Saved 462_crash.zip on the Desktop"
+
+
+APP="/Applications/462 Doai Station.app"; [ -d "$APP" ] || APP="$HOME/Applications/462 Doai Station.app"; [ -d "$APP" ] || echo "NO APP FOUND"; "$APP/Contents/MacOS/Doai462-Mac-Shipping" > ~/Desktop/462_run.txt 2>&1; echo "exit code $?" >> ~/Desktop/462_run.txt; find ~/Library/Logs ~/Library/Application\ Support -iname "*Doai462*" -mmin -30 2>/dev/null >> ~/Desktop/462_run.txt; tail -40 ~/Desktop/462_run.txt
