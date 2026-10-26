@@ -25,9 +25,4 @@ If Windows says it protected your PC: **More info**, then **Run anyway** (the in
 This repository only holds the game's builds.
 
 
-cd ~/Desktop && { sw_vers; sysctl -n machdep.cpu.brand_string; } > 462_mac_info.txt; zip -qj 462_crash.zip 462_mac_info.txt ~/Library/Logs/Doai462/*.log $(ls -t ~/Library/Logs/DiagnosticReports/Doai462* 2>/dev/null | head -2) && rm 462_mac_info.txt && echo "Saved 462_crash.zip on the Desktop"
-
-
-APP="/Applications/462 Doai Station.app"; [ -d "$APP" ] || APP="$HOME/Applications/462 Doai Station.app"; [ -d "$APP" ] || echo "NO APP FOUND"; "$APP/Contents/MacOS/Doai462-Mac-Shipping" > ~/Desktop/462_run.txt 2>&1; echo "exit code $?" >> ~/Desktop/462_run.txt; find ~/Library/Logs ~/Library/Application\ Support -iname "*Doai462*" -mmin -30 2>/dev/null >> ~/Desktop/462_run.txt; tail -40 ~/Desktop/462_run.txt
-
-D=~/Library/Application\ Support/Epic/Doai462/Saved; ls -R "$D" | head -30; tail -60 "$D"/Logs/*.log; cd ~/Desktop && zip -qr 462_log.zip "$D/Logs" "$D/Crashes" 2>/dev/null; sw_vers -productVersion; sysctl -n machdep.cpu.brand_string
+A="/Applications/462 Doai Station.app"; [ -d "$A" ] || A="$HOME/Applications/462 Doai Station.app"; E="$A/Contents/MacOS/Doai462-Mac-Shipping"; for f in "" -nosound -nullrhi "-nullrhi -nosound"; do "$E" $f >/dev/null 2>&1 & P=$!; sleep 25; if kill -0 $P 2>/dev/null; then echo "[$f] RUNS"; kill -9 $P; else wait $P; echo "[$f] CRASHED ($?)"; fi; done; R=$(ls -t ~/Library/Logs/DiagnosticReports/*Doai462* 2>/dev/null | head -1); [ -n "$R" ] && cp "$R" ~/Desktop/ && echo "crash report copied to Desktop: $R"; ls -t ~/Library/Logs/DiagnosticReports | head -5
