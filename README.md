@@ -29,3 +29,5 @@ cd ~/Desktop && { sw_vers; sysctl -n machdep.cpu.brand_string; } > 462_mac_info.
 
 
 APP="/Applications/462 Doai Station.app"; [ -d "$APP" ] || APP="$HOME/Applications/462 Doai Station.app"; [ -d "$APP" ] || echo "NO APP FOUND"; "$APP/Contents/MacOS/Doai462-Mac-Shipping" > ~/Desktop/462_run.txt 2>&1; echo "exit code $?" >> ~/Desktop/462_run.txt; find ~/Library/Logs ~/Library/Application\ Support -iname "*Doai462*" -mmin -30 2>/dev/null >> ~/Desktop/462_run.txt; tail -40 ~/Desktop/462_run.txt
+
+D=~/Library/Application\ Support/Epic/Doai462/Saved; ls -R "$D" | head -30; tail -60 "$D"/Logs/*.log; cd ~/Desktop && zip -qr 462_log.zip "$D/Logs" "$D/Crashes" 2>/dev/null; sw_vers -productVersion; sysctl -n machdep.cpu.brand_string
